@@ -24,9 +24,17 @@ private:
     TaskList *taskListArchive = new TaskList[1000];
     int taskListCount = 0;
     bool firstTime = true;
-//    void checkForChanges();
     void addListOnScreen(int i);
     void addListOnScreen();
+    /**
+     * @brief addTaskOnUI
+     * @param t
+     * @details Метод отвечающий за создание задачи на экране, а также за сохранение данных о задачах в массив taskArchive, которые при завершении программы записывается в файл.
+     */
+    void addTaskOnUI(Task* t);
+    void startNewThread();
+    void checkForChanges();
+
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -34,24 +42,11 @@ public:
 
 private slots:
     void on_sync_clicked();
-
     void on_AddTask_clicked();
     void on_addListBtn_clicked();
-
-//    void on_listWidget_itemPressed(QListWidgetItem *item);
+    void on_listWidget_itemPressed(QListWidgetItem *item);
 
 protected:
     Ui::MainWindow *ui;
-
-
-
-    /**
-     * @brief addTaskOnUI
-     * @param t
-     * @details Метод отвечающий за создание задачи на экране, а также за сохранение данных о задачах в массив taskArchive, которые при завершении программы записывается в файл.
-     */
-    void addTaskOnUI(Task* t);
-
-
 };
 #endif // MAINWINDOW_H

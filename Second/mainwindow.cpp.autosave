@@ -137,6 +137,7 @@ void MainWindow::addListOnScreen(int i) // LOAD LIST FUNCTION
     NewlistWidget->setDropIndicatorShown(true);
     NewlistWidget->setDefaultDropAction(Qt::MoveAction);
     NewlistWidget->setObjectName(name.c_str());
+    
     if (firstTime || i==0) {
         NewlistWidget->setGeometry(/*620*/ ui->listWidget->geometry().x() + 350,131,256,501);
         firstTime = false;
@@ -180,6 +181,7 @@ void MainWindow::addListOnScreen() // ADD LIST FUNCTION
     taskListArchive[taskListCount].setTaskCount(0);
     taskListCount++; // Увеличиваем на единицу количество списков, так как мы только что создали объект для хранения списков задач.
 }
+
 
 
 void MainWindow::on_listWidget_itemPressed(QListWidgetItem *item)
