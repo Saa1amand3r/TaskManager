@@ -8,11 +8,24 @@ void TaskSaver::SaveCurrentLists(TaskList listArchive[], int listCount)
     std::ofstream fListCount (saveListCountFile, ios::out);
     fListCount << listCount;
     fListCount.close();
+    std::ofstream fTempFirstTime("firstTimeTemp.logFile", ios::out);
+    fTempFirstTime << 0;
+    fTempFirstTime.close();
 }
 
-int TaskSaver::LoadTaskLists(TaskList listArchive[])
+int TaskSaver::LoadTaskLists(TaskList listArchive[], bool *firstTime)
 {
     int listCount = findTaskListCount();
+    std::ifstream fTempFirtsTime("firstTimeTemp.logFile", ios::in);
+    if (!fTempFirtsTime.is_open()) { // если файл не открыт
+            cout << "It is first time" << endl;
+            *firstTime = true;
+    }
+    else {
+        *firstTime= false;
+        cout << "It is not first time" << endl;
+    }
+    fTempFirtsTime.close();
     return listCount;
 }
 

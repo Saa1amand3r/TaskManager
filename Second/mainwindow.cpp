@@ -16,9 +16,9 @@ MainWindow::MainWindow(QWidget *parent) // главный метод
     ui->setupUi(this);
     TaskSaver *ts = new TaskSaver();
 
-    int taskListCountTemp = ts->LoadTaskLists(taskListArchive);
-    for (int i = 1; i < taskListCountTemp;i++) {
-        addListOnScreen();
+    int taskListCountTemp = ts->LoadTaskLists(taskListArchive, &firstTime);
+    for (int i = 0; i < taskListCountTemp;i++) {
+        addListOnScreen(i);
     }
     taskListCount = taskListCountTemp;
 
@@ -106,7 +106,37 @@ void MainWindow::on_addListBtn_clicked()
     addListOnScreen();
 }
 
-void MainWindow::addListOnScreen()
+void MainWindow::addListOnScreen(int i) // LOAD LIST FUNCTION
+{
+    QListWidget *NewlistWidget = new QListWidget(this); // Создаем новый виджет списка для демонстрации его в окне программы
+    TaskList *tl = new TaskList(); // Создаем объект для удобной работы и хранения списков
+    char buf[40] = {}; // буферная переменная для перевода числовой переменной в переменную типа String
+    sprintf(buf,"%d",taskListCount); // Превращаем число в символ
+    string number(buf); // заканчиваем преобразование числа в строку.
+    string name = "ListNumber" + number; // Создаем имя для конкретного списка, чтобы была возможность удобно с ними взаимодействовать.
+    tl->setListWidget(NewlistWidget); // Привязываем виджет списка к объекту
+    tl->setName(name); // Привязываем имя для удобного различия и вызова списков
+    tl->setListWidgetNumber(taskListCount); // Устанавливаем номер для списка
+    tl->setTaskCount(0); // На будущее переменная, которая показывает какое кол-во задач находится в списке.
+    NewlistWidget->setAcceptDrops(true);
+    NewlistWidget->setDropIndicatorShown(true);
+    NewlistWidget->setDefaultDropAction(Qt::MoveAction);
+    NewlistWidget->setObjectName(name.c_str());
+    if (firstTime || i==0) {
+        NewlistWidget->setGeometry(/*620*/ ui->listWidget->geometry().x() + 350,131,256,501);
+        firstTime = false;
+    } else {
+        NewlistWidget->setGeometry(/*620*/ taskListArchive[taskListCount-1].getListWidget()->geometry().x() + 300,131,256,501);
+    }
+    NewlistWidget->show();
+    taskListArchive[taskListCount].setListWidget(tl->getListWidget());
+    taskListArchive[taskListCount].setListWidgetNumber(tl->getListWidgetNumber());
+    taskListArchive[taskListCount].setName(name);
+    taskListArchive[taskListCount].setTaskCount(0);
+    taskListCount++; // Увеличиваем на единицу количество списков, так как мы только что создали объект для хранения списков задач.
+}
+
+void MainWindow::addListOnScreen() // ADD LIST FUNCTION
 {
     QListWidget *NewlistWidget = new QListWidget(this); // Создаем новый виджет списка для демонстрации его в окне программы
     TaskList *tl = new TaskList(); // Создаем объект для удобной работы и хранения списков
@@ -136,21 +166,3 @@ void MainWindow::addListOnScreen()
     taskListCount++; // Увеличиваем на единицу количество списков, так как мы только что создали объект для хранения списков задач.
 }
 
-
-//void MainWindow::checkForChanges() {
-//    bool ok = false;
-//    while(!ok) {
-//        for (int i = 1; i < taskListCount;i++) {
-//            if (taskListArchive[i].getListWidget()->count() > taskListArchive[i].getTaskCount()) {
-//                ok = true;
-//                taskListArchive[i].setTaskCount(taskListArchive[i].getTaskCount() + 1);
-//            }
-//        }
-//    }
-//    cout << "checkForChanges end" << endl;
-//}
-
-//void MainWindow::on_listWidget_itemPressed(QListWidgetItem *item)
-//{
-//    std::thread t(&MainWindow::checkForChanges(), this);
-//}

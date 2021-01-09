@@ -25,6 +25,7 @@ private:
     int taskListCount = 0;
     bool firstTime = true;
 //    void checkForChanges();
+    void addListOnScreen(int i);
     void addListOnScreen();
 
 public:

@@ -19,7 +19,7 @@ private:
 public:
     TaskSaver();
     void SaveCurrentLists(TaskList listArchive[], int listCount);
-    int LoadTaskLists(TaskList listArchive[]);
+    int LoadTaskLists(TaskList listArchive[], bool* firstTime);
     void SaveCurrentTasks(Task t[], int taskCount);
     int LoadTasks(Task t[]);
     void DeleteTask(Task t, int TaskNumber);
