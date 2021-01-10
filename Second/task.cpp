@@ -95,12 +95,22 @@ void Task::setIn_action(bool value)
 //    taskPositionCount = value;
 //}
 
+int Task::getTaskID() const
+{
+    return TaskID;
+}
+
+void Task::setTaskID(int value)
+{
+    TaskID = value;
+}
+
 Task::Task(){
     this->in_action = false;
 }
 
 Task::~Task()
 {
-
+    
 }
 
