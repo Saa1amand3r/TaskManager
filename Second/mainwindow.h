@@ -27,6 +27,8 @@ private:
 //    void checkForChanges();
     void addListOnScreen(int i);
     void addListOnScreen();
+    void checkChangesInTasksInList(TaskList tl);
+    void saveTasksInLists();
 
 public:
     MainWindow(QWidget *parent = nullptr);

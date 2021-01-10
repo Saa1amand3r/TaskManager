@@ -14,7 +14,7 @@ private:
     bool in_action; // Показывает выполняется ли в данный момент это задание
 //    int taskPositionCount; // Сохраняется в скольки списках сохранено. начинается с 1
 //    int *taskPosition = new int[10000]; // Номера списков начинаются с 1
-
+    int TaskID;
 public:
     Task();
     ~Task();
@@ -38,6 +38,8 @@ public:
 //    int* getTaskPosition();
 //    int getTaskPositionCount() const;
 //    void setTaskPositionCount(int value);
+    int getTaskID() const;
+    void setTaskID(int value);
 };
 
 #endif // TASK_H

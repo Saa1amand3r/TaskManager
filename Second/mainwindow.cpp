@@ -80,6 +80,7 @@ void MainWindow::addTaskOnUI(Task *t) {
     taskArchive[taskCount-1].setScheduledEndTime(t->getScheduledEndTime());
     taskArchive[taskCount-1].setScheduledStartTime(t->getScheduledStartTime());
     taskArchive[taskCount-1].setIn_action(t->getIn_action());
+    taskArchive[taskCount-1].setTaskID(taskCount-1);
 }
 
 
@@ -164,5 +165,19 @@ void MainWindow::addListOnScreen() // ADD LIST FUNCTION
     taskListArchive[taskListCount].setName(name);
     taskListArchive[taskListCount].setTaskCount(0);
     taskListCount++; // Увеличиваем на единицу количество списков, так как мы только что создали объект для хранения списков задач.
+}
+
+void MainWindow::checkChangesInTasksInList(TaskList tl)
+{
+    for (int i = 0; i < tl.getListWidget()->count(); i++) {
+
+    }
+}
+
+void MainWindow::saveTasksInLists()
+{
+    for (int i = 0; i <taskListCount; i++) {
+        checkChangesInTasksInList(taskListArchive[i]);
+    }
 }
 

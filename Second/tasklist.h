@@ -10,13 +10,14 @@ private:
     QListWidget* listWidget = new QListWidget;
     int listWidgetNumber;
     string name;
+    int taskInListID[10000];
 public:
+    void addElementId(int id);
+    int getElementID(string name);
     int getTaskCount() const;
     void setTaskCount(int value);
-
     int getListWidgetNumber() const;
     void setListWidgetNumber(int value);
-public:
     TaskList();
     QListWidget *getListWidget() const;
     void setListWidget(QListWidget *value);
