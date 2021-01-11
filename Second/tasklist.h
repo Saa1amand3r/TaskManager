@@ -13,7 +13,7 @@ private:
     int taskInListID[10000];
 public:
     void addElementId(int id);
-    int getElementID(string name);
+    int getElementId(int number);
     int getTaskCount() const;
     void setTaskCount(int value);
     int getListWidgetNumber() const;

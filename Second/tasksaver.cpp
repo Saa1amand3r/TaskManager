@@ -11,11 +11,28 @@ void TaskSaver::SaveCurrentLists(TaskList listArchive[], int listCount)
     std::ofstream fTempFirstTime("firstTimeTemp.logFile", ios::out);
     fTempFirstTime << 0;
     fTempFirstTime.close();
+
+    std::ofstream saveFile (saveFileForLists, ios::out);
+    for (int i = 0; i < listCount; i++) {
+        saveFile << listArchive[i].getName() << endl; // 0
+        saveFile << listArchive[i].getListWidget()->objectName().toStdString() << endl; // 1
+        // Здесь можно добавить ещё какие-то параметры из QListWidget для этого объекта, если будет надо.
+        saveFile << listArchive[i].getListWidgetNumber() << endl; // 2
+        saveFile << listArchive[i].getTaskCount() << endl; // 3
+        for (int j = 0; j < listArchive[i].getTaskCount(); j++) {
+            saveFile << listArchive->getElementId(j) << endl; // 4...10000
+        }
+        saveFile << endl;
+    }
+    saveFile.close();
 }
 
 int TaskSaver::LoadTaskLists(TaskList listArchive[], bool *firstTime)
 {
     int listCount = findTaskListCount();
+
+
+    //firstTime
     std::ifstream fTempFirtsTime("firstTimeTemp.logFile", ios::in);
     if (!fTempFirtsTime.is_open()) { // если файл не открыт
             cout << "It is first time" << endl;
@@ -26,6 +43,34 @@ int TaskSaver::LoadTaskLists(TaskList listArchive[], bool *firstTime)
         cout << "It is not first time" << endl;
     }
     fTempFirtsTime.close();
+    //firstTime
+
+    std::ifstream loadFile(saveFileForLists, ios::in);
+    for (int i = 0, j = 0; i < listCount;) {
+        char buf[50];
+        loadFile.getline(buf,50);
+        string buf_s = string(buf);
+        if (buf_s.empty() || j > 4) {
+            cout << "end of task" << endl;
+            j=0;
+            i++;
+            loadFile.getline(buf,50);
+        } else {
+            switch (j) {
+                case 0: listArchive[i].setName(buf_s); j++; break;
+                case 1: QListWidget *ql = new QListWidget();
+                        ql->setObjectName(buf_s.c_str()); // Таким-же образом мы ставим все необходимые параметры QListWidget
+                        listArchive[i].setListWidget(ql);j++; break;
+                case 2: listArchive[i].setListWidgetNumber(atoi(buf)); j++; break;
+                case 3: listArchive[i].setTaskCount(atoi(buf)); j++; break;
+                case 4: /* Здесь необходимо сделать цикл для того, чтобы пройтись по всем id и заполнить listArchive массив id-шек. В конце присваеваем j значение больше 4. i не плюсуем. */; j++; break;
+            }
+        }
+    }
+    /*
+     * Здесь или в MainWindow делаем загрузку (добавление) элементов (айтемов или тасков) в список по айдишкам. Скорее всего надо делать не здесь, потому что не получится отсюда управлять UI.
+     */
+
     return listCount;
 }
 

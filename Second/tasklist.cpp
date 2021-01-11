@@ -22,8 +22,13 @@ void TaskList::setName(const string &value)
 
 void TaskList::addElementId(int id)
 {
-    taskInListID[taskCount+1] = id;
+    taskInListID[taskCount] = id;
     taskCount++;
+}
+
+int TaskList::getElementId(int number)
+{
+    return taskInListID[number];
 }
 
 int TaskList::getTaskCount() const

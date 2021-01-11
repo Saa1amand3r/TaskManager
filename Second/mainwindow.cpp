@@ -170,7 +170,9 @@ void MainWindow::addListOnScreen() // ADD LIST FUNCTION
 void MainWindow::checkChangesInTasksInList(TaskList tl)
 {
     for (int i = 0; i < tl.getListWidget()->count(); i++) {
-
+        string name = tl.getListWidget()->item(i)->text().toStdString();
+        Task tempTask = findTaskByName(name);
+        tl.addElementId(tempTask.getTaskID());
     }
 }
 
@@ -178,6 +180,15 @@ void MainWindow::saveTasksInLists()
 {
     for (int i = 0; i <taskListCount; i++) {
         checkChangesInTasksInList(taskListArchive[i]);
+    }
+}
+
+Task MainWindow::findTaskByName(string name)
+{
+    for (int i = 0; i < taskCount; i++) {
+        if (taskArchive[i].getName() == name) {
+            return taskArchive[i];
+        }
     }
 }
 
