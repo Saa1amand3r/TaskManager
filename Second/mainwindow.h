@@ -29,6 +29,7 @@ private:
     void addListOnScreen();
     void checkChangesInTasksInList(TaskList tl);
     void saveTasksInLists();
+    Task findTaskByName(string name);
 
 public:
     MainWindow(QWidget *parent = nullptr);
