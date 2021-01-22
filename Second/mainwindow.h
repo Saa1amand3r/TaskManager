@@ -23,13 +23,13 @@ private:
     int taskCount = 0;
     TaskList *taskListArchive = new TaskList[1000];
     int taskListCount = 0;
-    bool firstTime = true;
 //    void checkForChanges();
-    void addListOnScreen(int i);
+    void loadListOnScreen(TaskList* tl, int i);
     void addListOnScreen();
     void checkChangesInTasksInList(TaskList tl);
     void saveTasksInLists();
     Task findTaskByName(string name);
+    Task findTaskByID(int id);
 
 public:
     MainWindow(QWidget *parent = nullptr);

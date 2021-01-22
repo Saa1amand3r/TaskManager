@@ -10,15 +10,6 @@ void TaskList::setListWidget(QListWidget *value)
     listWidget = value;
 }
 
-string TaskList::getName() const
-{
-    return name;
-}
-
-void TaskList::setName(const string &value)
-{
-    name = value;
-}
 
 void TaskList::addElementId(int id)
 {

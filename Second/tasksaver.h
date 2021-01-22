@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <tasklist.h>
+#include <mainwindow.h>
 class TaskSaver
 {
 private:
@@ -19,7 +20,7 @@ private:
 public:
     TaskSaver();
     void SaveCurrentLists(TaskList listArchive[], int listCount);
-    int LoadTaskLists(TaskList listArchive[], bool* firstTime);
+    int LoadTaskLists(TaskList listArchive[]);
     void SaveCurrentTasks(Task t[], int taskCount);
     int LoadTasks(Task t[]);
     void DeleteTask(Task t, int TaskNumber);
